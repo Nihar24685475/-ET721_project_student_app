@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+Dashboard
+{% endblock %}
+{% block content %}
+
+<h1 class="title">
+    Welcome, {{ username }}
+</h1>
+
+<div class="dashboard_box"> 
+    <h2>Student Dashboard</h2>
+    <p>Manage your tasks, blogs, and uploaded notes.</p> 
+    <a href="{{ url_for('logout') }}" class="logout_btn">Logout</a>
+    <a href="{{ url_for('todo') }}" class="tasks">To-Do</a>
+    <a href="{{ url_for('blog') }}" class="tasks">Blog</a>          
+    <a href="{{ url_for('notes') }}" class="tasks">Notes</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+To-Do List
+{% endblock %}
+{% block content %}
+
+<h1>Student To-Do List</h1>
+<form method="POST"
+      action="{{ url_for('add_task') }}"
+      class="form_box">
+    <input type="text"
+           name="task"
+           placeholder="Enter task"
+           required>
+    <button type="submit">
+        Add Task
+    </button>
+</form>
+<br>
+
+{% for task in tasks %}
+<div class="task_box">
+    <b>{{ task['task'] }}</b>
+    <p>Status: {{ task['status'] }}</p>
+    <!-- EDIT FORM -->
+    <form method="POST"
+          action="{{ url_for('update_task', id=task['id']) }}">
+        <input type="text"
+               name="task"
+               placeholder="Edit task">
+        <button type="submit">
+            Update
+        </button>
+    </form>
+    <!-- ACTION LINKS -->
+    <a href="{{ url_for('complete_task', id=task['id']) }}">
+        Complete
+    </a>
+    |
+    <a href="{{ url_for('delete_task', id=task['id']) }}">
+        Delete
+    </a>
+</div>
+<hr>
+{% endfor %}
+
+{% endblock %}

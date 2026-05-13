@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+Blog
+{% endblock %}
+{% block content %}
+
+<h1>Student Blog</h1>
+<form method="POST" action="{{ url_for('add_blog') }}" class="form_box">
+    <input type="text"
+           name="title"
+           placeholder="Enter title"
+           required>
+    <textarea name="content"
+              placeholder="Write your blog..."
+              rows="4"
+              required></textarea>
+    <button type="submit">
+        Post Blog
+    </button>
+</form>
+<br>
+
+{% for post in posts %}
+<div class="task_box">
+    <h3>{{ post['title'] }}</h3>
+    <p>{{ post['content'] }}</p>
+</div>
+<hr>
+{% endfor %}
+
+{% endblock %}

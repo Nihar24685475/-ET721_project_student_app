@@ -9,6 +9,8 @@ body{
     background-color: #f4f4f4;
 }
 
+/* NAVBAR */
+
 nav{
     background-color: #222;
     color: white;
@@ -33,13 +35,26 @@ nav ul li a{
     text-decoration: none;
 }
 
+/* CONTAINER */
+
 .container{
+    background-color: white;
+
+    width: 1500px;
+
+    margin: 60px auto;
+
+    padding: 30px;
+
+    border-radius: 5px;
+
     text-align: center;
-    margin-top: 100px;
 }
 
+/* TITLES */
+
 .container h1{
-    font-size: 40px;
+    font-size: 35px;
     margin-bottom: 20px;
 }
 
@@ -48,15 +63,116 @@ nav ul li a{
     margin-bottom: 20px;
 }
 
+/* FORMS */
+
+.form_box{
+    display: flex;
+    flex-direction: column;
+}
+
+.form_box input{
+    padding: 12px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #ccc;
+}
+
+/* BUTTONS */
+
 button{
     padding: 12px 25px;
+
     border: none;
+
     background-color: #222;
+
     color: white;
+
     cursor: pointer;
+
     border-radius: 5px;
 }
 
 button:hover{
     background-color: #444;
+}
+
+/* LINKS */
+
+.link_text{
+    margin-top: 15px;
+}
+
+.link_text a{
+    color: blue;
+    text-decoration: none;
+}
+
+/* FLASH MESSAGE */
+
+.flash_msg{
+    color: red;
+    margin-top: 15px;
+}
+
+/* DASHBOARD */
+
+.dashboard_box{
+    margin-top: 20px;
+}
+
+.logout_btn{
+    text-align: center;
+    margin-top: 200px;
+
+    padding: 10px 20px;
+
+    text-decoration: none;
+
+    
+}
+
+.tasks{
+    display: inline;
+    margin-top: 20px;
+
+    padding: 10px 20px;
+
+    background-color: black;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 5px;
+}
+
+/* TASKS */
+
+.task_box{
+    background-color: #f0f0f0;
+
+    padding: 15px;
+
+    margin-top: 15px;
+
+    border-radius: 5px;
+}
+
+.task_box a{
+    text-decoration: none;
+
+    margin-right: 10px;
+
+    color: darkblue;
+}
+
+.task_box b{
+    font-size: 18px;
+}
+
+textarea{
+    padding: 10px;
+    margin-bottom: 10px;
 }
