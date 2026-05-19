@@ -6,14 +6,8 @@ Blog
 
 <h1>Student Blog</h1>
 <form method="POST" action="{{ url_for('add_blog') }}" class="form_box">
-    <input type="text"
-           name="title"
-           placeholder="Enter title"
-           required>
-    <textarea name="content"
-              placeholder="Write your blog..."
-              rows="4"
-              required></textarea>
+    <input type="text" name="title" placeholder="Enter title" required>
+    <textarea name="content" placeholder="Write your blog..." rows="4" required></textarea>
     <button type="submit">
         Post Blog
     </button>
@@ -24,8 +18,11 @@ Blog
 <div class="task_box">
     <h3>{{ post['title'] }}</h3>
     <p>{{ post['content'] }}</p>
+
+    <a href="{{ url_for('delete_blog', id=post['id']) }}" class="action_btn delete_btn">
+        Delete
+    </a>
 </div>
 <hr>
 {% endfor %}
-
 {% endblock %}

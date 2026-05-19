@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet"href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
@@ -13,14 +13,17 @@
         <h2>Student Learning App</h2>
         <ul>
             <li><a href="{{ url_for('home') }}">Home</a></li>
+
+            {% if session.get('user_id') %}
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
             <li><a href="{{ url_for('login') }}">Login</a></li>
             <li><a href="{{ url_for('signup') }}">Signup</a></li>
-            <li><a href="{{ url_for('todo') }}">To-Do</a></li>
-            <li><a href="{{ url_for('blog') }}">Blog</a></li>      
-            <li><a href="{{ url_for('notes') }}">Notes</a></li>
+            {% endif %}
         </ul>
     </nav>
-    
+
     <main class="container">
         {% block content %}
         {% endblock %}

@@ -4,10 +4,7 @@ Notes
 {% endblock %}
 {% block content %}
 <h1>Upload Notes</h1>
-<form method="POST"
-      action="{{ url_for('upload') }}"
-      enctype="multipart/form-data"
-      class="form_box">
+<form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data" class="form_box">
     <input type="file" name="file" required>
     <button type="submit">
         Upload
@@ -16,12 +13,12 @@ Notes
 <br>
 {% for img in images %}
 <div class="task_box">
-    <img src="{{ url_for('static', filename='uploads/' + img['filename']) }}"
-         width="200">
+    <img src="{{ url_for('static', filename='uploads/' + img['filename']) }}" width="200">
     <br><br>
-    <a href="{{ url_for('delete_image', id=img['id']) }}">
+    <a href="{{ url_for('delete_image', id=img['id']) }}" class="action_btn delete_btn">
         Delete
     </a>
+
 </div>
 <hr>
 

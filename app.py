@@ -40,6 +40,7 @@ def login():
         user = cursor.fetchone()
         conn.close()
         if user:
+            session['user_id'] = user['id']
             session['username'] = user['username']
             return redirect(url_for('dashboard'))
         else:
@@ -78,13 +79,50 @@ def signup():
 # DASHBOARD
 # -----------------------------------
 @app.route('/dashboard')
-def dashboard():  
-    if 'username' in session:
-        return render_template(
-            'dashboard.html',
-            username=session['username']
-        )
-    return redirect(url_for('login'))
+def dashboard():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    conn = get_db()
+    cursor = conn.cursor()
+
+    # TASKS
+    cursor.execute(
+        "SELECT COUNT(*) FROM tasks WHERE user_id = ?",
+        (session['user_id'],)
+    )
+    total_tasks = cursor.fetchone()[0]
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM tasks WHERE user_id = ? AND status = 'Completed'",
+        (session['user_id'],)
+    )
+    completed_tasks = cursor.fetchone()[0]
+
+    # BLOGS
+    cursor.execute(
+        "SELECT COUNT(*) FROM blogs WHERE user_id = ?",
+        (session['user_id'],)
+    )
+    total_blogs = cursor.fetchone()[0]
+
+    # NOTES
+    cursor.execute(
+        "SELECT COUNT(*) FROM images WHERE user_id = ?",
+        (session['user_id'],)
+    )
+    total_images = cursor.fetchone()[0]
+
+    conn.close()
+
+    return render_template(
+        'dashboard.html',
+        username=session['username'],
+        total_tasks=total_tasks,
+        completed_tasks=completed_tasks,
+        total_blogs=total_blogs,
+        total_images=total_images
+    )
 
 # -----------------------------------
 # LOGOUT
@@ -99,9 +137,13 @@ def logout():
 # -----------------------------------
 @app.route('/todo')
 def todo():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     conn = get_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM tasks")
+    cursor.execute(
+        "SELECT * FROM tasks WHERE user_id = ?",
+        (session['user_id'],))
     tasks = cursor.fetchall()
     conn.close()
     return render_template('todo.html', tasks=tasks)
@@ -112,12 +154,12 @@ def todo():
 @app.route('/add_task', methods=['POST'])
 def add_task():
     task = request.form['task']
+    user_id = session['user_id']
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO tasks (task) VALUES (?)",
-        (task,)
-    )
+        "INSERT INTO tasks (task, user_id) VALUES (?, ?)",
+        (task, user_id))
     conn.commit()
     conn.close()
     return redirect(url_for('todo'))
@@ -177,9 +219,13 @@ def update_task(id):
 # -----------------------------------
 @app.route('/blog')
 def blog():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     conn = get_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM blogs")
+    cursor.execute(
+        "SELECT * FROM blogs WHERE user_id = ?",
+        (session['user_id'],))
     posts = cursor.fetchall()
     conn.close()
     return render_template('blog.html', posts=posts)
@@ -194,21 +240,36 @@ def add_blog():
     conn = get_db()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO blogs (title, content) VALUES (?, ?)",
-        (title, content)
+    "INSERT INTO blogs (title, content, user_id) VALUES (?, ?, ?)",
+    (title, content, session['user_id']))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('blog'))
+
+# delete blog
+@app.route('/delete_blog/<int:id>')
+def delete_blog(id):
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute(
+        "DELETE FROM blogs WHERE id = ?",
+        (id,)
     )
     conn.commit()
     conn.close()
     return redirect(url_for('blog'))
 
-# -----------------------------------
-# IMAAGES AND UPLOAD IMAGE
-# -----------------------------------
+
 @app.route('/notes')
 def notes():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
     conn = get_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM images")
+    cursor.execute(
+        "SELECT * FROM images WHERE user_id = ?",
+        (session['user_id'],)
+    )
     images = cursor.fetchall()
     conn.close()
     return render_template('notes.html', images=images)
@@ -223,9 +284,9 @@ def upload():
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO images (filename) VALUES (?)",
-            (filename,)
-        )
+    "INSERT INTO images (filename, user_id) VALUES (?, ?)",
+    (filename, session['user_id'])
+)
         conn.commit()
         conn.close()
     return redirect(url_for('notes'))

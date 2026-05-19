@@ -5,13 +5,8 @@ To-Do List
 {% block content %}
 
 <h1>Student To-Do List</h1>
-<form method="POST"
-      action="{{ url_for('add_task') }}"
-      class="form_box">
-    <input type="text"
-           name="task"
-           placeholder="Enter task"
-           required>
+<form method="POST" action="{{ url_for('add_task') }}" class="form_box">
+    <input type="text" name="task" placeholder="Enter task" required>
     <button type="submit">
         Add Task
     </button>
@@ -23,21 +18,18 @@ To-Do List
     <b>{{ task['task'] }}</b>
     <p>Status: {{ task['status'] }}</p>
     <!-- EDIT FORM -->
-    <form method="POST"
-          action="{{ url_for('update_task', id=task['id']) }}">
-        <input type="text"
-               name="task"
-               placeholder="Edit task">
-        <button type="submit">
+    <form method="POST" action="{{ url_for('update_task', id=task['id']) }}">
+        <input type="text" name="task" placeholder="Edit task">
+        <button type="submit" class="action_btn update_btn">
             Update
         </button>
     </form>
     <!-- ACTION LINKS -->
-    <a href="{{ url_for('complete_task', id=task['id']) }}">
+    <a href="{{ url_for('complete_task', id=task['id']) }}" class="action_btn complete_btn">
         Complete
     </a>
-    |
-    <a href="{{ url_for('delete_task', id=task['id']) }}">
+
+    <a href="{{ url_for('delete_task', id=task['id']) }}" class="action_btn delete_btn">
         Delete
     </a>
 </div>
