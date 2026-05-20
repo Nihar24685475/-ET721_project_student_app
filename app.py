@@ -106,6 +106,7 @@ def dashboard():
     )
     total_blogs = cursor.fetchone()[0]
 
+    
     # NOTES
     cursor.execute(
         "SELECT COUNT(*) FROM images WHERE user_id = ?",

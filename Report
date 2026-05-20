@@ -1,0 +1,43 @@
+Name: Nihar Patel
+Class: ET721
+Project 4 report 
+
+-  Introduction
+This is full-stack web app built using Flask. this application is made to manage their academic activities by providing tools like TO-DO, blog, and posting notes
+
+- development 
+First, the project structure was created using Flask conventions, including separate folders for templates and static files. The main application logic was written in app.py, which handles routing, database operations, and user authentication. Next using SQLite bring the all part together and Tables were created for users, tasks, blogs, images. These tables store all the date from the app and connect using the userID made using signup to ensure that each user only access there information. After completing all the backend, frontend templates. Designed all the pages one by one using css. 
+- ## Features are 
+1. User Authentication
+-login and signup
+- only that user can see thier task, blogs, and notes
+- logout 
+
+2. TO-DO list
+- write down the task they have
+- edit the tasks 
+- mark task as complete 
+- also can delete form the list 
+
+3. blogs
+- create and delete blog posts
+- view blog post
+- delete blog
+
+4. image uplods
+- upload notes image
+-view uploaded image
+- delete image
+
+Backend 
+The backend is developed using Flask. Routing is used to connect URLs to specific functions. Each route handles a particular feature such as login, adding tasks, or uploading files. SQLite is used as the database, which is lightweight and does not require server setup. SQL queries are used to insert, update, retrieve, and delete data.
+
+Frontend
+The frontend is built using HTML and CSS. Jinja templating is used to dynamically display data from the backend. Templates extend a base layout to maintain consistency across pages.
+CSS is used to create a modern dark-themed interface with responsive design and styled components such as buttons, forms, and cards.
+
+Challenging part
+ Managing user-specific data securely
+ Designing a clean and responsive user interface
+Handling file uploads and storage
+ 
