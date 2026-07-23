@@ -1,4 +1,4 @@
-# -ET721_project_student_app
+# student_app
 This is full-stack web app built using Flask. this application is made to manage their academic activities by providing tools like TO-DO, blog, and posting notes
 
 ## Features are 
